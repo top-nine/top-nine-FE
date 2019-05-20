@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import logo from "./logo.svg";
 import "./App.css";
 import Login from './components/Login/login';
@@ -13,6 +13,9 @@ class App extends React.Component {
       <div className="App">
         <Route path='/login' render={(props) => <Login {...props}/>}/> 
         <Private path='/home' component={Home} />
+        <Switch>
+           <Redirect exact from='/' to ='/home' />
+        </Switch>
       </div>
     );
   }
