@@ -24,6 +24,7 @@ export default class Login extends React.Component {
     return (
       <div className="login">
         <Form className="login-form">
+          <Form.Label className='login-label'>Log In</Form.Label>
           <Form.Group controlId="email">
             <Form.Control
               type="email"
