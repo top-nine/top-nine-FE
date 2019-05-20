@@ -1,0 +1,4 @@
+[build]
+base = "top-nine/"
+publish = "top-nine/build/"
+command = "yarn build"
