@@ -6,7 +6,7 @@ const Private = ({ component: Component, ...rest }) => (
     <Route
       {...rest}
       render={props =>
-        localStorage.getItem("auth4") ? (
+        localStorage.getItem("auth") ? (
           <Component />
         ) : (
           <Redirect to="/login" />

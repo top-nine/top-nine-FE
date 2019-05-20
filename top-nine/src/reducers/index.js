@@ -10,12 +10,12 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      window.localStorage.setItem("auth", action.payload);
       return {
         ...state,
         loggingIn: true,
         user: action.payload
       };
+
     case LOGIN_FAILED:
       return {
         ...state,
