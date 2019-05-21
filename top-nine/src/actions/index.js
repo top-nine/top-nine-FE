@@ -4,6 +4,10 @@ export const LOGIN = "LOGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 
+export const REGISTER = "REGISTER";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAILED = "REGISTER_FAILED";
+
 export const GET_TOP_NINE = "GET_TOP_NINE";
 export const GET_TOP_NINE_SUCCESS = "GET_TOP_NINE_SUCCESS";
 export const GET_TOP_NINE_FAILED = "GET_TOP_NINE_FAILED";
@@ -35,6 +39,20 @@ export const loginUser = (cred, callback) => dispatch => {
             dispatch({ type: LOGIN_FAILED, payload: error });
         });
 };
+
+export const register = (user, callback) => dispatch => {
+  
+  dispatch({ type: REGISTER });
+
+  return (axios.post(`https://top-nine.herokuapp.com/auth/register`, user)
+  .then(function (response) {
+     callback();
+    dispatch({ type: REGISTER_SUCCESS, payload: response.data });
+  })
+    .catch(function (error) {
+      dispatch({ type: REGISTER_FAILED, payload: error });
+    }));
+}
 
 export const getTopNine = (userID) => dispatch => {
  
