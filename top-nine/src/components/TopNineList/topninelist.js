@@ -17,7 +17,7 @@ class TopNineList extends React.Component {
 
     return (
       <React.Fragment>
-        <NavBar getTopNine={this.getTopNine} />
+        <NavBar getTopNine={this.getTopNine} {...this.props} />
         <div className="top-nine">
           {this.props.topNine &&
             this.props.topNine.map(item => (

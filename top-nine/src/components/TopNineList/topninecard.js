@@ -46,7 +46,7 @@ class TopNineCard extends React.Component {
   }
 
   render() {
-    console.log(this.props.item)
+
     return (
       <React.Fragment>
       <AddForm isAdd={false} item={{ id: this.props.item.id, 
@@ -59,7 +59,7 @@ class TopNineCard extends React.Component {
           <Button onClick={this.update} size="sm" variant="outline-primary">Update</Button>
           <Button onClick={this.delete} size="sm" variant="outline-danger">Delete</Button>
         </div>  
-        <Card.Img variant="top" src={this.props.item.image_url} />
+         
         <Card.Title>{this.props.item.title}</Card.Title>
         <Card.Text> {this.props.item.description} </Card.Text>
       </Card>
