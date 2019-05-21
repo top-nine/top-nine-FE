@@ -46,7 +46,7 @@ class TopNineCard extends React.Component {
   }
 
   render() {
-    console.log(this.props.item)
+
     return (
       <React.Fragment>
       <AddForm isAdd={false} item={{ id: this.props.item.id, 

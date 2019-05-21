@@ -14,7 +14,7 @@ export default class Home extends React.Component {
     return(
        <div className="home">
      
-          <TopNineList className='top-nine-list' topNine={this.props.topNine} />
+          <TopNineList className='top-nine-list' {...this.props} topNine={this.props.topNine} />
       </div>
     );
   }
