@@ -81,9 +81,7 @@ export default (state = initialState, action) => {
           };
           case POST_ITEM_SUCCESS:
           return{
-            ...state, 
-            topNine: action.payload,
- 
+         
           };
           case POST_ITEM_FAILED:
           return{
