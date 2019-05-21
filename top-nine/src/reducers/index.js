@@ -1,4 +1,5 @@
 import { LOGIN, LOGIN_SUCCESS, LOGIN_FAILED } from "../actions";
+import { REGISTER, REGISTER_SUCCESS, REGISTER_FAILED } from "../actions";
 import { GET_TOP_NINE, GET_TOP_NINE_SUCCESS, GET_TOP_NINE_FAILED } from "../actions";
 import { PUT_ITEM, PUT_ITEM_SUCCESS, PUT_ITEM_FAILED } from "../actions";
 import { POST_ITEM, POST_ITEM_SUCCESS, POST_ITEM_FAILED} from "../actions";
@@ -26,6 +27,19 @@ export default (state = initialState, action) => {
         error: action.payload,
         loggingIn: false
       };
+
+      case REGISTER_SUCCESS:
+        return {
+     
+        };
+  
+      case REGISTER_FAILED:
+        return {
+          ...state,
+          error: action.payload,
+      
+        };
+
     case GET_TOP_NINE:
        return {};
     case GET_TOP_NINE_SUCCESS:
