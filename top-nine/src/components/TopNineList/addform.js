@@ -21,7 +21,7 @@ class AddForm extends React.Component {
             this.setState({
                 title: this.props.item.title,
                 description: this.props.item.description,
-                image_url: this.props.image_url.image_url
+                image_url: this.props.item.image_url
             });
         }
     }
@@ -36,17 +36,12 @@ class AddForm extends React.Component {
 
     update = () => {
         this.props.itemPut({
-            id: this.props.image_url.id, 
+            id: this.props.id, 
             title: this.state.title, 
             description: this.state.description, 
             image_url: this.state.image_url});
 
-            this.props.updateSmurf({
-                id: this.props.image_url.id, 
-                title: this.state.title, 
-                description: this.state.description, 
-                image_url: this.state.image_url});
-                
+       
             this.props.handleClose();
     }
 

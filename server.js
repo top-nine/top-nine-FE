@@ -139,3 +139,16 @@ app.put('/topnine/:id', (req, res) => {
     res.json(topNine);
   }
 });
+
+app.delete('/topnine/:id', (req, res) => {
+  const { id } = req.params;
+  const item = topNine.find(item => item.id == id);
+
+  if (item) {
+    const remove = { ...item };
+    topNine = topNine.filter(item => item.id != id);
+    res.status(200).json(topNine);
+  } else {
+    sendUserError('Not found', res);
+  }
+});

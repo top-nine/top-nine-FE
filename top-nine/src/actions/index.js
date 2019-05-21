@@ -16,6 +16,10 @@ export const POST_ITEM = "POST_ITEM";
 export const POST_ITEM_SUCCESS = "POST_ITEM_SUCCESS";
 export const POST_ITEM_FAILED = "POST_ITEM_FAILED";
 
+export const DELETE_ITEM = "DELETE_ITEM";
+export const DELETE_ITEM_SUCCESS = "DELETE_ITEM_SUCCESS";
+export const DELETE_ITEM_FAILED = "DELETE_ITEM_FAILED";
+
 export const loginUser = (cred, callback) => dispatch => {
     const { email, password } = cred;
     dispatch({ type: LOGIN });
@@ -73,4 +77,16 @@ export const itemPut = (item) => dispatch => {
         dispatch({ type: POST_ITEM_FAILED, payload: error });
       });
   }
+  
+  export const itemDelete = (id) => dispatch => {
+    dispatch({ type: DELETE_ITEM });
+    return (axios.delete(`http://localhost:5000/topnine/${id}`)
+    .then(function (response) {
+      dispatch({ type: DELETE_ITEM_SUCCESS, payload: response.data });
+    })
+      .catch(function (error) {
+        dispatch({ type: DELETE_ITEM_FAILED, payload: error });
+      }));
+  }
+  
   
