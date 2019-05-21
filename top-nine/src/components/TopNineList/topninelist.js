@@ -14,6 +14,7 @@ class TopNineList extends React.Component {
     this.props.getTopNine(window.localStorage.getItem("userID"));
   };
   render() {
+
     return (
       <React.Fragment>
         <NavBar getTopNine={this.getTopNine} />

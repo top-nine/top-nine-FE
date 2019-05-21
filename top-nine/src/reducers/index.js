@@ -5,7 +5,7 @@ import { POST_ITEM, POST_ITEM_SUCCESS, POST_ITEM_FAILED} from "../actions";
 import { DELETE_ITEM, DELETE_ITEM_SUCCESS, DELETE_ITEM_FAILED } from "../actions";
 
 const initialState = {
-  user: null,
+  token: null,
   topNine: [],
   loggingIn: false,
   error: null
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loggingIn: true,
-        user: action.payload
+        token: action.payload
       };
 
     case LOGIN_FAILED:
@@ -33,6 +33,7 @@ export default (state = initialState, action) => {
        return {
         ...state,
         topNine: action.payload,
+       
       };
     case GET_TOP_NINE_FAILED:
     

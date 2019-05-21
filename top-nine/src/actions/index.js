@@ -23,12 +23,13 @@ export const DELETE_ITEM_FAILED = "DELETE_ITEM_FAILED";
 export const loginUser = (cred, callback) => dispatch => {
     const { email, password } = cred;
     dispatch({ type: LOGIN });
-    const request = axios.post('http://localhost:5000/api/login', { email, password });
+    const request = axios.post('https://top-nine.herokuapp.com/auth/login', { email, password });
     request.then(function (response) {
-        window.localStorage.setItem("auth", response.data.payload.auth);
-        window.localStorage.setItem("userID", response.data.payload.userID);
+        window.localStorage.setItem("auth", response.data.token);
+        
+        console.log('login', response.data.token);
         callback();
-        dispatch({ type: LOGIN_SUCCESS, payload: response.data.payload }); 
+        dispatch({ type: LOGIN_SUCCESS, payload: response.data.token }); 
     })
         .catch(function (error) {
             dispatch({ type: LOGIN_FAILED, payload: error });
@@ -38,14 +39,14 @@ export const loginUser = (cred, callback) => dispatch => {
 export const getTopNine = (userID) => dispatch => {
  
     dispatch({ type: GET_TOP_NINE });
-   return (axios.get(`http://localhost:5000/api/topnine/${ userID }`, {
+   return (axios.get(`https://top-nine.herokuapp.com/home`, {
         headers: {
             "authorization": window.localStorage.getItem('auth')
         }
     })
     .then(function (response) {
-       
-        dispatch({ type: GET_TOP_NINE_SUCCESS, payload: response.data });
+       console.log('get', response.date);
+        dispatch({ type: GET_TOP_NINE_SUCCESS, payload: response.data.topNine });
     })
         .catch(function (error) {
             dispatch({ type: GET_TOP_NINE_FAILED, payload: error });
@@ -65,12 +66,17 @@ export const itemPut = (item) => dispatch => {
       });
   }
   
-  export const itemPost = (item) => dispatch => {
+  export const itemPost = (item, callback) => dispatch => {
   
     dispatch({ type: POST_ITEM });
   
-    const request = axios.post(`http://localhost:5000/topnine`, item);
+    const request = axios.post(`https://top-nine.herokuapp.com/home/add-top-nine`, item,{
+      headers: {
+          "authorization": window.localStorage.getItem('auth')
+      }
+  });
     request.then(function (response) {
+      callback();
       dispatch({ type: POST_ITEM_SUCCESS, payload: response.data });
     })
       .catch(function (error) {
@@ -80,7 +86,11 @@ export const itemPut = (item) => dispatch => {
   
   export const itemDelete = (id) => dispatch => {
     dispatch({ type: DELETE_ITEM });
-    return (axios.delete(`http://localhost:5000/topnine/${id}`)
+    return (axios.delete(`https://top-nine.herokuapp.com/home/${id}/delete-top-nine`,{
+      headers: {
+          "authorization": window.localStorage.getItem('auth')
+      }
+  })
     .then(function (response) {
       dispatch({ type: DELETE_ITEM_SUCCESS, payload: response.data });
     })

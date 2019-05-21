@@ -29,8 +29,12 @@ class AddForm extends React.Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
+    callback = () => {
+        this.props.getTopNine();
+        }
+        
     add = () => {
-        this.props.itemPost(this.state);
+        this.props.itemPost(this.state, this.callback);
         this.props.handleClose();
     }
 
@@ -73,7 +77,7 @@ class AddForm extends React.Component {
                         </Form.Group>
 
                         <Form.Group controlId="image_url">
-                            <Form.Label>Height</Form.Label>
+                            <Form.Label>Image URL</Form.Label>
                             <Form.Control type="text" placeholder="Image URL" name='image_url' defaultValue={this.state.height} onChange={this.inputChanged}/>
                         </Form.Group>
  
