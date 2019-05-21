@@ -1,0 +1,19 @@
+.top-nine{
+    display: flex;
+    flex-direction: row;
+}
+
+.card{
+    border-radius: 0px !important;
+    width: 500px;
+    height: 550px;
+    margin:2%;
+}
+
+.card-img{
+    border-radius: 0px !important;    
+}
+
+.card-title{
+    margin-top: 3%;
+}
