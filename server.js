@@ -20,7 +20,15 @@ let topNine = [
     id: 1,
     user_id: 1,
     title: "Somthing",
-    description: "Something Else",
+    description: "Something Something Something Something Something Something Something Something Something",
+    image_url:
+      "https://s3.amazonaws.com/tinycards/image/4b42ac408eb61db4867f6558f1713fb7"
+  },
+  {
+    id: 2,
+    user_id: 1,
+    title: "Somthing Else",
+    description: "Something Else Something Else Something Else Something Else Something Else Something Else Something Else Something Else Something Else Something Else Something Else Something Else Something Else Something Else",
     image_url:
       "https://s3.amazonaws.com/tinycards/image/4b42ac408eb61db4867f6558f1713fb7"
   },
@@ -56,10 +64,11 @@ app.post("/api/login", (req, res) => {
 });
 
 app.get("/api/topnine/:userID", authenticator, (req, res) => {
-  
   const newArray = topNine.filter(item =>  item.user_id == req.params.userID );
-    console.log(newArray);
-  res.status(200).json(newArray);
+  if (newArray)
+    res.status(200).json(newArray);
+  else 
+    res.status(404).send({ msg: 'Not found' });
 });
 
 app.listen(port, () => {

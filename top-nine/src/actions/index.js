@@ -26,17 +26,16 @@ export const loginUser = (cred, callback) => dispatch => {
 export const getTopNine = (userID) => dispatch => {
  
     dispatch({ type: GET_TOP_NINE });
-    const request = axios.get(`http://localhost:5000/api/topnine/${ userID }`, {
+   return (axios.get(`http://localhost:5000/api/topnine/${ userID }`, {
         headers: {
             "authorization": window.localStorage.getItem('auth')
         }
-    });
-    request.then(function (response) {
-    
-        console.log(response);
+    })
+    .then(function (response) {
+       
         dispatch({ type: GET_TOP_NINE_SUCCESS, payload: response.data });
     })
         .catch(function (error) {
             dispatch({ type: GET_TOP_NINE_FAILED, payload: error });
-        });
+        }));
 };

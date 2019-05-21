@@ -6,7 +6,7 @@ import {
 } from "../actions";
 
 const initialState = {
-  user: [],
+  user: null,
   topNine: [],
   loggingIn: false,
   error: null
@@ -28,13 +28,15 @@ export default (state = initialState, action) => {
         loggingIn: false
       };
     case GET_TOP_NINE:
-      return {};
+       return {};
     case GET_TOP_NINE_SUCCESS:
-      return {
+       
+       return {
         ...state,
         topNine: action.payload,
       };
     case GET_TOP_NINE_FAILED:
+    
       return {
         ...state,
         error: action.payload,

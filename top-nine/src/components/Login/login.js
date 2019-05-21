@@ -11,7 +11,8 @@ class Login extends React.Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      registerForm: false,
     };
   }
 
@@ -35,16 +36,16 @@ class Login extends React.Component {
 
   }
 
-  render() {
+  registerClicked = event => {
+    this.setState({registerForm: true});
+  }
 
-   if ( localStorage.getItem("auth"))
-   return (<Redirect from='/login' to ='/home' />);
-  
-
-    return (
+registerForm(){
+  return(
+ 
       <div className="login">
         <Form className="login-form">
-          <Form.Label className='login-label'>Log In</Form.Label>
+          <Form.Label className='login-label'>Register</Form.Label>
           <Form.Group controlId="email">
             <Form.Control
               type="email"
@@ -75,7 +76,54 @@ class Login extends React.Component {
         </Form>
  
       </div>
+  );
+}
+  loginForm(){
+    return(
+      <div className="login">
+        <Form className="login-form">
+          <Form.Label className='login-label'>Log In</Form.Label>
+          <Form.Group controlId="email">
+            <Form.Control
+              type="email"
+              placeholder="Email"
+              name="email"
+              defaultValue={this.state.name}
+              onChange={this.inputChanged}
+            />
+          </Form.Group>
+          <Form.Group controlId="password">
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              name="password"
+              defaultValue={this.state.name}
+              onChange={this.inputChanged}
+            />
+          </Form.Group>
+ 
+
+          <Button variant="primary" type="submit" onClick={this.loginUser}>
+            Log In
+          </Button>
+
+          <Button variant="register" onClick={ this.registerClicked }>
+            Register
+          </Button>
+        </Form>
+ 
+      </div>
     );
+  }
+  render() {
+
+   if ( localStorage.getItem("auth"))
+   return (<Redirect from='/login' to ='/home' />);
+  
+      if (this.state.registerForm)
+        return(this.registerForm());
+      else
+        return(this.loginForm());
   }
 }
 export default connect(null, { loginUser })(Login)
