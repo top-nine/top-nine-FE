@@ -1,12 +1,10 @@
 import React from "react";
-import { Route } from "react-router-dom";
 import TopNineCard from "./topninecard";
 import "./topnine.css";
-import { connect } from "react-redux";
-import { getTopNine } from "../../actions";
+
 import NavBar from "../NavBar/navbar";
 
-class TopNineList extends React.Component {
+export default class TopNineList extends React.Component {
   componentWillMount() {
     this.getTopNine();
   }
@@ -16,7 +14,7 @@ class TopNineList extends React.Component {
   render() {
 
     return (
-      <React.Fragment>
+      <React.Fragment>  
         <NavBar getTopNine={this.getTopNine} {...this.props} />
         <div className="top-nine">
           {this.props.topNine &&
@@ -32,13 +30,3 @@ class TopNineList extends React.Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    topNine: state.topNine
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  { getTopNine }
-)(TopNineList);

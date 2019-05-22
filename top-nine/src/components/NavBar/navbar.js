@@ -27,16 +27,19 @@ import './navbar.css';
     }
 
     render() {
+      console.log(this.props);
         return (
             <React.Fragment>
-            <Navbar className='nav-bar' fixed="top" bg="light" expand="lg">
-                <Navbar.Brand href="/">Top Nine</Navbar.Brand>
+            <Navbar className='nav-bar' fixed="top"   expand="lg">
+                <Navbar.Brand href="/">Top9</Navbar.Brand>
                 <div>
-                    <Button className="btn  ml-auto mr-1" variant="outline-success" onClick={this.handleShow}>Add</Button>
-                    <Button className="btn  ml-auto mr-1" variant="outline-success" onClick={this.logout}>Log out</Button>
+                    { (this.props.topNine && this.props.topNine.length < 9) &&
+                     <Button className="btn  ml-auto mr-1" variant="success" onClick={this.handleShow}>Add</Button>}
+                     { localStorage.getItem('auth') &&
+                     <Button className="btn  ml-auto mr-1" variant="success" onClick={this.logout}>Log out</Button>}
                 </div>
             </Navbar>
-            <AddForm isAdd={true} show= {this.state.showForm} getTopNine={this.getTopNine} handleClose= {this.handleClose} handleShow= {this.handleShow}/>
+            <AddForm getTopNine={this.props.getTopNine} isAdd={true} show= {this.state.showForm} handleClose= {this.handleClose} handleShow= {this.handleShow}/>
             </React.Fragment>
         );
     }

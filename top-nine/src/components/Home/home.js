@@ -1,15 +1,14 @@
 import React from "react";
-import { Route } from "react-router-dom";
-
 import TopNineList from '../TopNineList/topninelist'; 
-
-
 import './home.css';
+import { connect } from "react-redux";
+import { getTopNine } from "../../actions";
 
-export default class Home extends React.Component {
+class Home extends React.Component {
 
- 
-
+  componentDidMount(){
+    this.props.getTopNine();
+  }
   render() {
     return(
        <div className="home">
@@ -20,3 +19,13 @@ export default class Home extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    topNine: state.topNine
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getTopNine }
+)(Home);

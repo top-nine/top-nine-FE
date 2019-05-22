@@ -32,13 +32,24 @@ class AddForm extends React.Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    callback = () => {
-        this.props.getTopNine();
+    clearState = () => {
+        this.setState({
+            id: '',
+            title: '',
+            description: '',
+            image_url: ''
+        });
     }
+ 
         
     add = () => {
-        this.props.itemPost(this.state, this.callback);
-        this.props.handleClose();
+        this.props.itemPost(this.state)
+        .then(() =>{this.props.getTopNine();})
+        .then(() =>{        
+            this.clearState();
+            this.props.handleClose();
+        });
+
     }
 
     update = () => {
@@ -47,21 +58,39 @@ class AddForm extends React.Component {
             title: this.state.title, 
             description: this.state.description,
             image_url: this.state.image_url
-        }); 
-       
-        this.props.handleClose();
+        })
+        .then(() =>{})   
+        .then(() =>{        
+            this.clearState();
+            this.props.handleClose();
+        });
     }
 
     buttonClicked = (event) => {
         event.preventDefault();
 
-        if (this.props.isAdd)
+
+        if (this.props.isAdd){
+
+            if (this.state.title == '' || this.state.title === null){
+                alert('Title is required');
+                return;
+            }
+    
+    
+            if (this.state.description == '' || this.state.description === null){
+                alert('Description is required');
+                return;
+            }
+    
             this.add();
+        }
         else
             this.update();
     }
 
     render() {
+        
         return (
 
             <Modal show={this.props.show} onHide={this.props.handleClose}>
@@ -77,11 +106,6 @@ class AddForm extends React.Component {
                         <Form.Group controlId="description">
                             <Form.Label>Description</Form.Label>
                             <Form.Control type="text" placeholder="Description" name='description' defaultValue={this.state.description} onChange={this.inputChanged}/>
-                        </Form.Group>
-
-                        <Form.Group controlId="image_url">
-                            <Form.Label>Image URL</Form.Label>
-                            <Form.Control type="text" placeholder="Image URL" name='image_url' defaultValue={this.state.image_url} onChange={this.inputChanged}/>
                         </Form.Group>
  
                         <Button variant="primary" type="submit" onClick={this.buttonClicked}>

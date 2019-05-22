@@ -6,6 +6,7 @@
     "autoresponsive-react-native": "^1.0.9",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
+    "formik": "^1.5.7",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
@@ -16,7 +17,8 @@
     "reactstrap": "^8.0.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",

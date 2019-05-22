@@ -1,8 +1,7 @@
 import React from "react";
-import { Route } from "react-router-dom";
 import { connect } from 'react-redux';
-import {Tooltip, Overlay, Card, CardDeck, Button, ButtonGroup } from "react-bootstrap";
-import { itemDelete, itemPut } from '../../actions';
+import { Card,  Button } from "react-bootstrap";
+import { itemDelete, itemPut, getTopNine } from '../../actions';
 import AddForm from './addform';
 
 import "./topnine.css";
@@ -33,12 +32,11 @@ class TopNineCard extends React.Component {
     })
 
     this.props.itemPut(this.state);
-}
+  }
 
   update = (event) =>{
     this.handleShow();
   }
-  
   
   delete = (event) => {
     this.props.itemDelete(this.props.item.id)
@@ -49,16 +47,17 @@ class TopNineCard extends React.Component {
 
     return (
       <React.Fragment>
-      <AddForm isAdd={false} item={this.props.item} show={this.state.showForm} handleClose={this.handleClose} handleShow={this.handleShow} update={this.update} />
+      <AddForm isAdd={false} getTopNine={this.props.getTopNine} item={this.props.item} show={this.state.showForm} handleClose={this.handleClose} handleShow={this.handleShow} update={this.update} />
 
       <Card className="item-card">
-        <div className='buttons'>
-          <Button onClick={this.update} size="sm" variant="outline-primary">Update</Button>
-          <Button onClick={this.delete} size="sm" variant="outline-danger">Delete</Button>
-        </div>  
-         
+      
         <Card.Title>{this.props.item.title}</Card.Title>
         <Card.Text> {this.props.item.description} </Card.Text>
+        <div className='buttons'>
+          <Button onClick={this.update} size="sm" variant="primary">Update</Button>
+          <Button onClick={this.delete} size="sm" variant="danger">Delete</Button>
+        </div>  
+         
       </Card>
       </React.Fragment>
     
@@ -66,4 +65,4 @@ class TopNineCard extends React.Component {
   }
 }
 
-export default connect(null, { itemDelete, itemPut })(TopNineCard)
+export default connect(null, { itemDelete, itemPut, getTopNine })(TopNineCard)
