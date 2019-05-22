@@ -71,12 +71,18 @@ export const getTopNine = (userID) => dispatch => {
         }));
 };
 
-export const itemPut = (item) => dispatch => {
-    const { id, title, description, iamge_url } = item;
+export const itemPut = (item, callback) => dispatch => {
+    const { id, title, description, image_url } = item;
    
     dispatch({ type: PUT_ITEM });
-    return axios.put(`http://localhost:5000/topnine/${id}`, { title, description, iamge_url })
+    return axios.put(`https://top-nine.herokuapp.com/home/${id}/edit-top-nine`,{ title, description, image_url },
+     {
+      headers: {
+          "authorization": window.localStorage.getItem('auth')
+        }
+    })
     .then(function (response) {
+      callback();
       dispatch({ type: PUT_ITEM_SUCCESS, payload: response.data });
     })
       .catch(function (error) {
@@ -86,13 +92,14 @@ export const itemPut = (item) => dispatch => {
   
   export const itemPost = (item, callback) => dispatch => {
   
-    dispatch({ type: POST_ITEM });
+    dispatch({ type: POST_ITEM }); 
   
     const request = axios.post(`https://top-nine.herokuapp.com/home/add-top-nine`, item,{
       headers: {
           "authorization": window.localStorage.getItem('auth')
       }
   });
+  
     request.then(function (response) {
       callback();
       dispatch({ type: POST_ITEM_SUCCESS, payload: response.data });
