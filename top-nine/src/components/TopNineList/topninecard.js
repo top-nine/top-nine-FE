@@ -49,10 +49,7 @@ class TopNineCard extends React.Component {
 
     return (
       <React.Fragment>
-      <AddForm isAdd={false} item={{ id: this.props.item.id, 
-                                     title: this.props.item.title, 
-                                     desctiption: this.props.item.description,
-                                    image_url: this.props.item.image_url }} show={this.state.showForm} handleClose={this.handleClose} handleShow={this.handleShow} update={this.update} />
+      <AddForm isAdd={false} item={this.props.item} show={this.state.showForm} handleClose={this.handleClose} handleShow={this.handleShow} update={this.update} />
 
       <Card className="item-card">
         <div className='buttons'>

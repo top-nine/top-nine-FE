@@ -25,13 +25,14 @@ class AddForm extends React.Component {
             });
         }
     }
+
     inputChanged = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     }
 
     callback = () => {
         this.props.getTopNine();
-        }
+    }
         
     add = () => {
         this.props.itemPost(this.state, this.callback);
@@ -42,11 +43,11 @@ class AddForm extends React.Component {
         this.props.itemPut({
             id: this.props.id, 
             title: this.state.title, 
-            description: this.state.description, 
-            image_url: this.state.image_url});
-
+            description: this.state.description,
+            image_url: this.state.image_url
+        }); 
        
-            this.props.handleClose();
+        this.props.handleClose();
     }
 
     buttonClicked = (event) => {
@@ -69,16 +70,16 @@ class AddForm extends React.Component {
                     <Form>
                         <Form.Group controlId="title">
                             <Form.Label>Title</Form.Label>
-                            <Form.Control type="text" placeholder="Title" name='title' defaultValue={this.state.name} onChange={this.inputChanged}/>
+                            <Form.Control type="text" placeholder="Title" name='title' defaultValue={this.state.title} onChange={this.inputChanged}/>
                         </Form.Group>
                         <Form.Group controlId="description">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control type="text" placeholder="Description" name='description' defaultValue={this.state.age} onChange={this.inputChanged}/>
+                            <Form.Control type="text" placeholder="Description" name='description' defaultValue={this.state.description} onChange={this.inputChanged}/>
                         </Form.Group>
 
                         <Form.Group controlId="image_url">
                             <Form.Label>Image URL</Form.Label>
-                            <Form.Control type="text" placeholder="Image URL" name='image_url' defaultValue={this.state.height} onChange={this.inputChanged}/>
+                            <Form.Control type="text" placeholder="Image URL" name='image_url' defaultValue={this.state.image_url} onChange={this.inputChanged}/>
                         </Form.Group>
  
                         <Button variant="primary" type="submit" onClick={this.buttonClicked}>
