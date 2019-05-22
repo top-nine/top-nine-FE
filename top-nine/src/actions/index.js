@@ -73,9 +73,9 @@ export const getTopNine = (userID) => dispatch => {
 
 export const itemPut = (item, callback) => dispatch => {
     const { id, title, description, image_url } = item;
-   
+    console.log(item);
     dispatch({ type: PUT_ITEM });
-    return axios.put(`https://top-nine.herokuapp.com/home/${id}/edit-top-nine`,{ title, description, image_url },
+    return axios.put(`https://top-nine.herokuapp.com/home/${id}/edit-top-nine`,{ title, description },
      {
       headers: {
           "authorization": window.localStorage.getItem('auth')
