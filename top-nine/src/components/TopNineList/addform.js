@@ -10,6 +10,7 @@ class AddForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             title: '',
             description: '',
             image_url: '',
@@ -19,6 +20,7 @@ class AddForm extends React.Component {
     componentWillReceiveProps(){
         if (!this.props.isAdd){
             this.setState({
+                id: this.props.item.id,
                 title: this.props.item.title,
                 description: this.props.item.description,
                 image_url: this.props.item.image_url
@@ -41,7 +43,7 @@ class AddForm extends React.Component {
 
     update = () => {
         this.props.itemPut({
-            id: this.props.id, 
+            id: this.state.id, 
             title: this.state.title, 
             description: this.state.description,
             image_url: this.state.image_url
