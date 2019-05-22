@@ -40,13 +40,12 @@ export const loginUser = (cred, callback) => dispatch => {
         });
 };
 
-export const register = (user, callback) => dispatch => {
+export const register = (user) => dispatch => {
   
   dispatch({ type: REGISTER });
 
   return (axios.post(`https://top-nine.herokuapp.com/auth/register`, user)
   .then(function (response) {
-     callback();
     dispatch({ type: REGISTER_SUCCESS, payload: response.data });
   })
     .catch(function (error) {
@@ -63,7 +62,6 @@ export const getTopNine = (userID) => dispatch => {
         }
     })
     .then(function (response) {
-       console.log('get', response.date);
         dispatch({ type: GET_TOP_NINE_SUCCESS, payload: response.data.topNine });
     })
         .catch(function (error) {
@@ -71,42 +69,41 @@ export const getTopNine = (userID) => dispatch => {
         }));
 };
 
-export const itemPut = (item, callback) => dispatch => {
+export const itemPut = (item) => dispatch => {
     const { id, title, description, image_url } = item;
-    console.log(item);
+   
     dispatch({ type: PUT_ITEM });
-    return axios.put(`https://top-nine.herokuapp.com/home/${id}/edit-top-nine`,{ title, description },
+    return (axios.put(`https://top-nine.herokuapp.com/home/${id}/edit-top-nine`,{ title, description },
      {
       headers: {
           "authorization": window.localStorage.getItem('auth')
         }
     })
     .then(function (response) {
-      callback();
+    
       dispatch({ type: PUT_ITEM_SUCCESS, payload: response.data });
     })
       .catch(function (error) {
         dispatch({ type: PUT_ITEM_FAILED, payload: error });
-      });
+      }));
   }
   
   export const itemPost = (item, callback) => dispatch => {
-  
+    const { title, description } = item;
     dispatch({ type: POST_ITEM }); 
   
-    const request = axios.post(`https://top-nine.herokuapp.com/home/add-top-nine`, item,{
+    return( axios.post(`https://top-nine.herokuapp.com/home/add-top-nine`, { title, description },{
       headers: {
           "authorization": window.localStorage.getItem('auth')
       }
-  });
-  
-    request.then(function (response) {
+  })
+  .then(function (response) {
       callback();
       dispatch({ type: POST_ITEM_SUCCESS, payload: response.data });
     })
       .catch(function (error) {
         dispatch({ type: POST_ITEM_FAILED, payload: error });
-      });
+      }));
   }
   
   export const itemDelete = (id) => dispatch => {

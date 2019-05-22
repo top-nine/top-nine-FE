@@ -1,8 +1,9 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
+import { Button, Form } from "react-bootstrap";
 import { loginUser, register } from '../../actions';
 import { connect } from 'react-redux';
+import NavBar from '../NavBar/navbar';
 
 import './login.css';
 
@@ -64,7 +65,9 @@ class Login extends React.Component {
 registerForm(){
   return(
  
+
       <div className="login">
+ 
         <Form className="login-form">
           <Form.Label className='login-label'>Register</Form.Label>
           {this.state.registerForm && 
@@ -114,11 +117,14 @@ registerForm(){
         </Form>
  
       </div>
+     
   );
 }
   loginForm(){
     return(
+
       <div className="login">
+         <NavBar isLogin={true}/>
         <Form className="login-form">
           <Form.Label className='login-label'>Log In</Form.Label>
           <Form.Group controlId="email">

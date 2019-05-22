@@ -13,7 +13,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  
+
   switch (action.type) {
 
     case LOGIN_SUCCESS:
@@ -45,7 +45,7 @@ export default (state = initialState, action) => {
     case GET_TOP_NINE_SUCCESS:
       return {
         ...state,
-        topNine: action.payload
+        topNine: action.payload.sort((a, b) => (a.id > b.id ? 1 : -1))
       };
 
     case GET_TOP_NINE_FAILED:
