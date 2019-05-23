@@ -93,13 +93,13 @@ export const itemPut = item => dispatch => {
 };
 
 export const itemPost = (item) => dispatch => {
-  const { title, description } = item;
+  const { title, description, image_url } = item;
   dispatch({ type: POST_ITEM });
 
   return axios
     .post(
       `https://top-nine.herokuapp.com/home/add-top-nine`,
-      { title, description },
+      { title, description, image_url },
       {
         headers: {
           authorization: window.localStorage.getItem("auth")

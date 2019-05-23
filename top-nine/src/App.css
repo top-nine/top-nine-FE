@@ -1,13 +1,14 @@
 body{
   font-size: 62.5%;
- 
+  background: #10171e;
 }
+
 
 .App {
   text-align: center;
   max-width: 1000px;
   margin: 0 auto;
-  
+
 }
 
 

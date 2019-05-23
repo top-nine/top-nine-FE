@@ -110,12 +110,18 @@ class AddForm extends React.Component {
                             <Form.Label className='error-msg'>{ this.state.titleError }</Form.Label>
                             <Form.Control type="text" placeholder="Title" name='title' defaultValue={this.state.title} onChange={this.inputChanged}/>
                         </Form.Group>
+
                         <Form.Group controlId="description">
                             <Form.Label>Description</Form.Label>
                             <Form.Label className='error-msg'>{ this.state.descriptionError }</Form.Label>
                             <Form.Control type="text" placeholder="Description" name='description' defaultValue={this.state.description} onChange={this.inputChanged}/>
                         </Form.Group>
  
+                        <Form.Group controlId="image_url">
+                            <Form.Label>Image URL</Form.Label>
+                            <Form.Control type="text" placeholder="Image URL" name='image_url' defaultValue={this.state.image_url} onChange={this.inputChanged}/>
+                        </Form.Group>
+
                         <Button variant="primary" type="submit" onClick={this.buttonClicked}>
                             {this.props.isAdd ? 'Add' : 'Update'}
                         </Button>

@@ -44,7 +44,8 @@ class TopNineCard extends React.Component {
   }
 
   render() {
-
+    const image_url = this.props.item.image_url !== null ? this.props.item.image_url : './img/logo.png';
+    console.log(this.props.item.image_url);
     return (
       <React.Fragment>
       <AddForm isAdd={false} getTopNine={this.props.getTopNine} item={this.props.item} show={this.state.showForm} handleClose={this.handleClose} handleShow={this.handleShow} update={this.update} />
@@ -52,6 +53,9 @@ class TopNineCard extends React.Component {
       <Card className="item-card">
         <div className='title'>
           <Card.Title>{this.props.item.title}</Card.Title>
+        </div>
+        <div className='card-img-container'> 
+          <Card.Img className='card-img' variant="top" src={image_url} />
         </div>
         <div className='description'>
           <Card.Text> {this.props.item.description} </Card.Text>
