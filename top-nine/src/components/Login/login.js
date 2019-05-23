@@ -16,35 +16,31 @@ class Login extends React.Component {
       email: "",
       password: "",
       password2: "",
-      registerForm: false,   
+      registerForm: false
     };
   }
 
-
-  inputChanged = event => {
+  inputChanged = (event) => {
+    console.log(event.target.name);
     this.setState({ [event.target.name]: event.target.value });
   };
 
   inputClear = () => {
- 
     this.setState({
       name: "",
       email: "",
       password: "",
-      password2: "",
+      password2: ""
     });
-  }
+  };
 
   finish = () => {
-
     this.inputClear();
-    
+
     let status = this.props.status;
-  if (this.state.registerForm && status === 200) 
+    if (this.state.registerForm && status === 200)
       this.setState({ registerForm: false });
-    else 
-    if (!this.state.registerForm) 
-      this.props.history.push("/home");
+    else if (!this.state.registerForm) this.props.history.push("/home");
   };
 
   loginUser = event => {
@@ -55,12 +51,10 @@ class Login extends React.Component {
         email: this.state.email,
         password: this.state.password
       })
+      .then(() => {})
       .then(() => {
-       
-      }).then(() => {
-        if (this.props.status === 200)
-        this.finish();
-      })
+        if (this.props.status === 200) this.finish();
+      });
   };
 
   cancel = event => {
@@ -71,8 +65,7 @@ class Login extends React.Component {
   };
 
   registerUser = event => {
-    if (this.state.password === this.state.password2)
-    {
+    if (this.state.password === this.state.password2) {
       this.props
         .register({
           name: this.state.name,
@@ -86,26 +79,33 @@ class Login extends React.Component {
   };
 
   registerClicked = event => {
-    if (this.state.registerForm) 
-      this.registerUser();
+    if (this.state.registerForm) this.registerUser();
     else {
       this.props.clearError();
-      this.inputClear();
-      this.setState({ registerForm: true });
+
+      this.setState({
+        name: "",
+        email: "",
+        password: "",
+        password2: "",
+        registerForm: true
+      });
     }
   };
 
   registerForm() {
+    let error =
+      this.state.password !== this.state.password2
+        ? "Passwords do not match"
+        : this.props.error;
 
-    let error =  this.state.password !== this.state.password2 ? 'Passwords do not match' : this.props.error;
-     
     return (
       <div className="login">
         <NavBar isLogin={true} />
         <Form className="login-form">
           <Form.Label className="login-label">Register</Form.Label>
-          <Form.Group >
-          <Form.Label className='error-msg'>{error}</Form.Label>
+          <Form.Group>
+            <Form.Label className="error-msg">{error}</Form.Label>
           </Form.Group>
           {this.state.registerForm && (
             <Form.Group controlId="name">
@@ -113,6 +113,7 @@ class Login extends React.Component {
                 type="name"
                 placeholder="Name"
                 name="name"
+                value={this.state.name}
                 onChange={this.inputChanged}
               />
             </Form.Group>
@@ -122,6 +123,7 @@ class Login extends React.Component {
               type="email"
               placeholder="Email"
               name="email"
+              value={this.state.email}
               onChange={this.inputChanged}
             />
           </Form.Group>
@@ -130,28 +132,31 @@ class Login extends React.Component {
               type="password"
               placeholder="Password"
               name="password"
+              value={this.state.password}
               onChange={this.inputChanged}
             />
           </Form.Group>
-          {this.state.registerForm && (
-            <Form.Group controlId="password2">
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                name="password2"
-                onChange={this.inputChanged}
-              />
-            </Form.Group>
-          )}
 
-          <Button className='login-button'
+          <Form.Group controlId="password2">
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              name="password2"
+              value={this.state.password2}
+              onChange={this.inputChanged}
+            />
+          </Form.Group>
+
+          <Button
+            className="login-button"
             variant={this.state.registerForm ? "cancel" : "primary"}
             onClick={this.cancel}
           >
             Cancel
           </Button>
 
-          <Button className='login-button'
+          <Button
+            className="login-button"
             variant={this.state.registerForm ? "primary" : "register"}
             onClick={this.registerClicked}
           >
@@ -163,24 +168,25 @@ class Login extends React.Component {
   }
 
   loginForm() {
+    let error =
+      this.props.status !== 200 && this.props.status !== 0
+        ? "Please make sure login credentials are accurate"
+        : "";
 
-    let error =  this.props.status !== 200  && this.props.status !== 0 ? 'Please make sure login credentials are accurate' : '';
-    console.log(this.props);
     return (
       <div className="login">
         <NavBar isLogin={true} />
         <Form className="login-form">
-          
           <Form.Label className="login-label">Log In</Form.Label>
-          <Form.Group >
-          <Form.Label className='error-msg'>{error}</Form.Label>
+          <Form.Group>
+            <Form.Label className="error-msg">{error}</Form.Label>
           </Form.Group>
           <Form.Group controlId="email">
             <Form.Control
               type="email"
               placeholder="Email"
               name="email"
-              defaultValue={this.state.name}
+              value={this.state.email}
               onChange={this.inputChanged}
             />
           </Form.Group>
@@ -189,40 +195,49 @@ class Login extends React.Component {
               type="password"
               placeholder="Password"
               name="password"
-              defaultValue={this.state.name}
+              value={this.state.password}
               onChange={this.inputChanged}
             />
           </Form.Group>
 
-          <Button className='login-button' variant="primary" type="submit" onClick={this.loginUser}>
+          <Button
+            className="login-button"
+            variant="primary"
+            type="submit"
+            onClick={this.loginUser}
+          >
             Log In
           </Button>
 
-          <Button className='login-button' variant="register" onClick={this.registerClicked}>
+          <Button
+            className="login-button"
+            variant="register"
+            onClick={this.registerClicked}
+          >
             Register
           </Button>
         </Form>
       </div>
     );
   }
- 
+
   render() {
     if (localStorage.getItem("auth"))
       return <Redirect from="/login" to="/home" />;
- 
-    if (this.state.registerForm) 
-      return this.registerForm();
-    else 
-      return this.loginForm();
+
+    if (this.state.registerForm) return this.registerForm();
+    else return this.loginForm();
   }
 }
 
 const mapStateToProps = state => {
   return {
-   
     error: state.error,
-    status: state.status,
+    status: state.status
   };
 };
 
-export default connect( mapStateToProps, { loginUser, register, clearError } )(Login);
+export default connect(
+  mapStateToProps,
+  { loginUser, register, clearError }
+)(Login);

@@ -4,15 +4,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+
    
 }
 
 .login-form{
-    border: 0px solid gray;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    padding: 2% 5% 3%   5%;
+
+     padding: 2% 5% 3%   5%;
     width: 350px;
     background:  #182430;
+    border: 1px solid #38444d !important;
 }
 
 .login-label{
