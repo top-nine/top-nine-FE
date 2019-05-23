@@ -70,17 +70,17 @@
     width: 100%;
     
     height: 175px;
-    background: white;
+    background: 38444d;
     justify-content: left;
     align-items: center;
- 
+ color:white;
     box-shadow: 0 4px 4px rgba(9,30,66,.25);
  }
 .card p{
     padding-left: 10px;
     font-size: 1.25rem;
     text-align: left;
- 
+    
 }
 
 .modal-content{
