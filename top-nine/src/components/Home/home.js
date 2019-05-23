@@ -6,13 +6,10 @@ import { getTopNine } from "../../actions";
 
 class Home extends React.Component {
 
-  componentDidMount(){
-    this.props.getTopNine();
-  }
+ 
   render() {
     return(
        <div className="home">
-     
           <TopNineList className='top-nine-list' {...this.props} topNine={this.props.topNine} />
       </div>
     );
@@ -21,7 +18,8 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    topNine: state.topNine
+    topNine: state.topNine,
+    error: state.error
   };
 };
 

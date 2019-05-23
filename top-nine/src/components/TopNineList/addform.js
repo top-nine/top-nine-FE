@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { itemPost, itemPut } from '../../actions';
 import { Modal, Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './topnine.css';
 
 class AddForm extends React.Component {
 
@@ -14,6 +15,8 @@ class AddForm extends React.Component {
             title: '',
             description: '',
             image_url: '',
+            titleError: '',
+            descriptionError: '',
         }
     }
 
@@ -27,7 +30,7 @@ class AddForm extends React.Component {
             });
         }
     }
-
+ 
     inputChanged = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     }
@@ -47,6 +50,8 @@ class AddForm extends React.Component {
         .then(() =>{this.props.getTopNine();})
         .then(() =>{        
             this.clearState();
+            this.setState({titleError: '',
+            descriptionError: ''});
             this.props.handleClose();
         });
 
@@ -72,14 +77,16 @@ class AddForm extends React.Component {
 
         if (this.props.isAdd){
 
-            if (this.state.title == '' || this.state.title === null){
-                alert('Title is required');
+            if (this.state.title === '' || this.state.title === null){
+                this.setState({titleError: 'Title required',
+                               descriptionError: ''});
                 return;
             }
     
     
-            if (this.state.description == '' || this.state.description === null){
-                alert('Description is required');
+            if (this.state.description === '' || this.state.description === null){
+                this.setState({titleError: '', 
+                               descriptionError: 'Description required'});
                 return;
             }
     
@@ -90,7 +97,6 @@ class AddForm extends React.Component {
     }
 
     render() {
-        
         return (
 
             <Modal show={this.props.show} onHide={this.props.handleClose}>
@@ -101,10 +107,12 @@ class AddForm extends React.Component {
                     <Form>
                         <Form.Group controlId="title">
                             <Form.Label>Title</Form.Label>
+                            <Form.Label className='error-msg'>{ this.state.titleError }</Form.Label>
                             <Form.Control type="text" placeholder="Title" name='title' defaultValue={this.state.title} onChange={this.inputChanged}/>
                         </Form.Group>
                         <Form.Group controlId="description">
                             <Form.Label>Description</Form.Label>
+                            <Form.Label className='error-msg'>{ this.state.descriptionError }</Form.Label>
                             <Form.Control type="text" placeholder="Description" name='description' defaultValue={this.state.description} onChange={this.inputChanged}/>
                         </Form.Group>
  

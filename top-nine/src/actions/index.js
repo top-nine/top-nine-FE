@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const LOGIN = "LOGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -24,101 +24,112 @@ export const DELETE_ITEM = "DELETE_ITEM";
 export const DELETE_ITEM_SUCCESS = "DELETE_ITEM_SUCCESS";
 export const DELETE_ITEM_FAILED = "DELETE_ITEM_FAILED";
 
-export const loginUser = (cred, callback) => dispatch => {
-    const { email, password } = cred;
-    dispatch({ type: LOGIN });
-    const request = axios.post('https://top-nine.herokuapp.com/auth/login', { email, password });
-    request.then(function (response) {
-        window.localStorage.setItem("auth", response.data.token);
-        
-        console.log('login', response.data.token);
-        callback();
-        dispatch({ type: LOGIN_SUCCESS, payload: response.data.token }); 
+export const CLEAR_ERROR = "CLEAR_ERROR";
+
+export const loginUser = cred => dispatch => {
+  const { email, password } = cred;
+  dispatch({ type: LOGIN });
+  return axios
+    .post("https://top-nine.herokuapp.com/auth/login", { email, password })
+    .then(function(response) {
+      window.localStorage.setItem("auth", response.data.token);
+    
+      dispatch({ type: LOGIN_SUCCESS, payload: response.data.token });
     })
-        .catch(function (error) {
-            dispatch({ type: LOGIN_FAILED, payload: error });
-        });
+    .catch(function(error) {
+      dispatch({ type: LOGIN_FAILED, payload: error });
+    });
 };
 
-export const register = (user) => dispatch => {
-  
+export const register = user => dispatch => {
   dispatch({ type: REGISTER });
 
-  return (axios.post(`https://top-nine.herokuapp.com/auth/register`, user)
-  .then(function (response) {
-    dispatch({ type: REGISTER_SUCCESS, payload: response.data });
-  })
-    .catch(function (error) {
+  return axios
+    .post(`https://top-nine.herokuapp.com/auth/register`, user)
+    .then(function(response) {
+      dispatch({ type: REGISTER_SUCCESS, payload: response.data });
+    })
+    .catch(function(error) {
       dispatch({ type: REGISTER_FAILED, payload: error });
-    }));
-}
-
-export const getTopNine = (userID) => dispatch => {
- 
-    dispatch({ type: GET_TOP_NINE });
-   return (axios.get(`https://top-nine.herokuapp.com/home`, {
-        headers: {
-            "authorization": window.localStorage.getItem('auth')
-        }
-    })
-    .then(function (response) {
-        dispatch({ type: GET_TOP_NINE_SUCCESS, payload: response.data.topNine });
-    })
-        .catch(function (error) {
-            dispatch({ type: GET_TOP_NINE_FAILED, payload: error });
-        }));
+    });
 };
 
-export const itemPut = (item) => dispatch => {
-    const { id, title, description, image_url } = item;
-   
-    dispatch({ type: PUT_ITEM });
-    return (axios.put(`https://top-nine.herokuapp.com/home/${id}/edit-top-nine`,{ title, description },
-     {
+export const getTopNine = userID => dispatch => {
+  dispatch({ type: GET_TOP_NINE });
+  return axios
+    .get(`https://top-nine.herokuapp.com/home`, {
       headers: {
-          "authorization": window.localStorage.getItem('auth')
-        }
+        authorization: window.localStorage.getItem("auth")
+      }
     })
-    .then(function (response) {
-    
+    .then(function(response) {
+      dispatch({ type: GET_TOP_NINE_SUCCESS, payload: response.data.topNine });
+    })
+    .catch(function(error) {
+      dispatch({ type: GET_TOP_NINE_FAILED, payload: error });
+    });
+};
+
+export const itemPut = item => dispatch => {
+  const { id, title, description } = item;
+
+  dispatch({ type: PUT_ITEM });
+  return axios
+    .put(
+      `https://top-nine.herokuapp.com/home/${id}/edit-top-nine`,
+      { title, description },
+      {
+        headers: {
+          authorization: window.localStorage.getItem("auth")
+        }
+      }
+    )
+    .then(function(response) {
       dispatch({ type: PUT_ITEM_SUCCESS, payload: response.data });
     })
-      .catch(function (error) {
-        dispatch({ type: PUT_ITEM_FAILED, payload: error });
-      }));
-  }
-  
-  export const itemPost = (item, callback) => dispatch => {
-    const { title, description } = item;
-    dispatch({ type: POST_ITEM }); 
-  
-    return( axios.post(`https://top-nine.herokuapp.com/home/add-top-nine`, { title, description },{
-      headers: {
-          "authorization": window.localStorage.getItem('auth')
+    .catch(function(error) {
+      dispatch({ type: PUT_ITEM_FAILED, payload: error });
+    });
+};
+
+export const itemPost = (item) => dispatch => {
+  const { title, description } = item;
+  dispatch({ type: POST_ITEM });
+
+  return axios
+    .post(
+      `https://top-nine.herokuapp.com/home/add-top-nine`,
+      { title, description },
+      {
+        headers: {
+          authorization: window.localStorage.getItem("auth")
+        }
       }
-  })
-  .then(function (response) {
-      callback();
+    )
+    .then(function(response) {  
       dispatch({ type: POST_ITEM_SUCCESS, payload: response.data });
     })
-      .catch(function (error) {
-        dispatch({ type: POST_ITEM_FAILED, payload: error });
-      }));
-  }
-  
-  export const itemDelete = (id) => dispatch => {
-    dispatch({ type: DELETE_ITEM });
-    return (axios.delete(`https://top-nine.herokuapp.com/home/${id}/delete-top-nine`,{
+    .catch(function(error) {
+      dispatch({ type: POST_ITEM_FAILED, payload: error });
+    });
+};
+
+export const itemDelete = id => dispatch => {
+  dispatch({ type: DELETE_ITEM });
+  return axios
+    .delete(`https://top-nine.herokuapp.com/home/${id}/delete-top-nine`, {
       headers: {
-          "authorization": window.localStorage.getItem('auth')
+        authorization: window.localStorage.getItem("auth")
       }
-  })
-    .then(function (response) {
+    })
+    .then(function(response) {
       dispatch({ type: DELETE_ITEM_SUCCESS, payload: response.data });
     })
-      .catch(function (error) {
-        dispatch({ type: DELETE_ITEM_FAILED, payload: error });
-      }));
-  }
-  
-  
+    .catch(function(error) {
+      dispatch({ type: DELETE_ITEM_FAILED, payload: error });
+    });
+};
+
+export const clearError = () => dispatch => {
+  dispatch({ type: CLEAR_ERROR});
+}

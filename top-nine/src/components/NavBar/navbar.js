@@ -27,7 +27,6 @@ import './navbar.css';
     }
 
     render() {
-      console.log(this.props);
         return (
             <React.Fragment>
             <Navbar className='nav-bar' fixed="top"   expand="lg">
@@ -44,11 +43,7 @@ import './navbar.css';
         );
     }
 }
-const mapStateToProps = state => {
-    return {
-      topNine: state.topNine
-    };
-  };
+
   
   export default connect(
     null,null
