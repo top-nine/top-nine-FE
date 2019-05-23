@@ -13,8 +13,9 @@
     width:  250px;
     height: 250px;
     margin: 2%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     
+    box-shadow: 0 4px 8px 0 rgba(9,30,66,0.5);
+    background: #dfe1e6;
 }
 
 .card .buttons{
@@ -38,7 +39,7 @@
 
  .card .buttons Button{
      margin: 4%;
-    opacity:1.0;
+    opacity: 1.0;
     
  }
 .card-img-top{
@@ -48,17 +49,33 @@
 }
 
 .card-title{
+    
     margin-top: 0px;
+    margin-left: 15px;
+    width: 100%;
+    height: 50px;
     padding: 10px 0 10px 0;
-    color: white;
-    background: #2E8FD1;
+    color: black;
+    text-align: left;
     font-size: auto;
-  
 }
-
-.card-text{
-    font-size: 1.25rem;
+ .description{
+     display: flex;
     padding: 2%;
+    width: 230px;
+    margin-left: 10px; 
+    height: 175px;
+    background: white;
+    justify-content: left;
+    align-items: center;
+    border-radius: 3px;   
+    box-shadow: 0 4px 4px rgba(9,30,66,.25);
+ }
+.card p{
+    padding-left: 10px;
+    font-size: 1.25rem;
+    text-align: left;
+ 
 }
 
 .modal-content{
@@ -80,3 +97,4 @@
     color: red;
     margin-left: 1%;
 }
+
