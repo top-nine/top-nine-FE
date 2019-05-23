@@ -10,12 +10,13 @@ export default class TopNineList extends React.Component {
   }
   getTopNine = () => {
     this.props.getTopNine(window.localStorage.getItem("userID"));
+    console.log(this.props);
   };
   render() {
 
     return (
       <React.Fragment>  
-        <NavBar getTopNine={this.getTopNine} {...this.props} />
+        <NavBar getTopNine={this.props.getTopNine} {...this.props} />
         <div className="top-nine">
           {this.props.topNine &&
             this.props.topNine.map(item => (

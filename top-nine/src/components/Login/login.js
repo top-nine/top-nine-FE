@@ -1,84 +1,119 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
-import { loginUser, register } from '../../actions';
-import { connect } from 'react-redux';
-import NavBar from '../NavBar/navbar';
+import { loginUser, register, clearError } from "../../actions";
+import { connect } from "react-redux";
+import NavBar from "../NavBar/navbar";
 
-import './login.css';
+import "./login.css";
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      name:"",
+      name: "",
       email: "",
       password: "",
-      password2:"",
-      registerForm: false,
+      password2: "",
+      registerForm: false,   
     };
   }
 
+
   inputChanged = event => {
     this.setState({ [event.target.name]: event.target.value });
+  };
+
+  inputClear = () => {
+ 
+    this.setState({
+      name: "",
+      email: "",
+      password: "",
+      password2: "",
+    });
   }
 
-  callback = () => {
-    this.props.history.push('/home');
-  }
+  finish = () => {
+
+    this.inputClear();
+    
+    let status = this.props.status;
+  if (this.state.registerForm && status === 200) 
+      this.setState({ registerForm: false });
+    else 
+    if (!this.state.registerForm) 
+      this.props.history.push("/home");
+  };
 
   loginUser = event => {
     event.stopPropagation();
     event.preventDefault();
-    this.props.loginUser({
-            email: this.state.email,
-            password: this.state.password
-          }, this.callback);
-  }
+    this.props
+      .loginUser({
+        email: this.state.email,
+        password: this.state.password
+      })
+      .then(() => {
+        this.finish();
+      });
+  };
 
   cancel = event => {
- 
-     event.preventDefault();
-    this.setState({registerForm: false});
-  }
+    event.preventDefault();
+    this.inputClear();
+    this.props.clearError();
+    this.setState({ registerForm: false });
+  };
 
   registerUser = event => {
-    if (this.state.password !== this.state.password2)
-      alert('Passwords do not match!!!');
-    else{
-        this.props.register({
-            name: this.state.name,
-            email: this.state.email,
-            password: this.state.password
-          }, this.callback);
+    if (this.state.password === this.state.password2)
+    {
+      this.props
+        .register({
+          name: this.state.name,
+          email: this.state.email,
+          password: this.state.password
+        })
+        .then(() => {
+          this.finish();
+        });
     }
-  }
+  };
 
   registerClicked = event => {
-    
-    if (this.state.registerForm)
+    if (this.state.registerForm) 
       this.registerUser();
-    else
-      this.setState({registerForm: true});
-  }
+    else {
+      this.props.clearError();
+      this.inputClear();
+      this.setState({ registerForm: true });
+    }
+  };
 
-registerForm(){
-  return(
- 
+  registerForm() {
 
+    let error =  this.state.password !== this.state.password2 ? 'Passwords do not match' : this.props.error;
+
+    return (
       <div className="login">
- 
+        <NavBar isLogin={true} />
         <Form className="login-form">
-          <Form.Label className='login-label'>Register</Form.Label>
-          {this.state.registerForm && 
+          <Form.Label className="login-label">Register</Form.Label>
+          <Form.Group >
+          <Form.Label className='error-msg'>{error}</Form.Label>
+          </Form.Group>
+          {this.state.registerForm && (
             <Form.Group controlId="name">
-            <Form.Control
-              type="name"
-              placeholder="Name"
-              name="name"
-              onChange={this.inputChanged}
-            />
-              </Form.Group>}
+              <Form.Control
+                type="name"
+                placeholder="Name"
+                name="name"
+                onChange={this.inputChanged}
+              />
+            </Form.Group>
+          )}
           <Form.Group controlId="email">
             <Form.Control
               type="email"
@@ -94,39 +129,49 @@ registerForm(){
               name="password"
               onChange={this.inputChanged}
             />
-              </Form.Group>
-            {this.state.registerForm && 
+          </Form.Group>
+          {this.state.registerForm && (
             <Form.Group controlId="password2">
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              name="password2"
-              onChange={this.inputChanged}
-            />
-              </Form.Group>}
-        
- 
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                name="password2"
+                onChange={this.inputChanged}
+              />
+            </Form.Group>
+          )}
 
-          <Button variant={this.state.registerForm ? "cancel" : "primary"} onClick={this.cancel}>
+          <Button
+            variant={this.state.registerForm ? "cancel" : "primary"}
+            onClick={this.cancel}
+          >
             Cancel
           </Button>
 
-          <Button variant={this.state.registerForm ? "primary" : "register"} onClick={ this.registerClicked }>
+          <Button
+            variant={this.state.registerForm ? "primary" : "register"}
+            onClick={this.registerClicked}
+          >
             Register
           </Button>
         </Form>
- 
       </div>
-     
-  );
-}
-  loginForm(){
-    return(
+    );
+  }
 
+  loginForm() {
+
+    let error =  this.props.error;
+
+    return (
       <div className="login">
-         <NavBar isLogin={true}/>
+        <NavBar isLogin={true} />
         <Form className="login-form">
-          <Form.Label className='login-label'>Log In</Form.Label>
+          
+          <Form.Label className="login-label">Log In</Form.Label>
+          <Form.Group >
+          <Form.Label className='error-msg'>{error}</Form.Label>
+          </Form.Group>
           <Form.Group controlId="email">
             <Form.Control
               type="email"
@@ -145,29 +190,36 @@ registerForm(){
               onChange={this.inputChanged}
             />
           </Form.Group>
- 
 
           <Button variant="primary" type="submit" onClick={this.loginUser}>
             Log In
           </Button>
 
-          <Button variant="register" onClick={ this.registerClicked }>
+          <Button variant="register" onClick={this.registerClicked}>
             Register
           </Button>
         </Form>
- 
       </div>
     );
   }
+ 
   render() {
-
-   if ( localStorage.getItem("auth"))
-   return (<Redirect from='/login' to ='/home' />);
-  
-      if (this.state.registerForm)
-        return(this.registerForm());
-      else
-        return(this.loginForm());
+    if (localStorage.getItem("auth"))
+      return <Redirect from="/login" to="/home" />;
+ 
+    if (this.state.registerForm) 
+      return this.registerForm();
+    else 
+      return this.loginForm();
   }
 }
-export default connect(null, { loginUser, register })(Login)
+
+const mapStateToProps = state => {
+  return {
+   
+    error: state.error,
+    status: state.status,
+  };
+};
+
+export default connect( mapStateToProps, { loginUser, register, clearError } )(Login);

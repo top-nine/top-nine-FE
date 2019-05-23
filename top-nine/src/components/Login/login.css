@@ -7,7 +7,7 @@
 }
 
 .login-form{
-    border: 1px solid gray;
+    border: 0px solid gray;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 2% 5% 3%   5%;
     width: 350px;
@@ -16,4 +16,9 @@
 .login-label{
     font-size: 2rem;
     padding-bottom: 5%;
+}
+
+.error-msg{
+    color: red;
+    font-size: 0.75rem;
 }
