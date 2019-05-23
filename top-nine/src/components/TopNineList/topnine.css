@@ -24,22 +24,24 @@
     width: 100%;
     justify-content: space-around; 
     position: absolute;
-    background: #01295F;
+    background: #01295F50;
     top: 350px;
     left: 0;
     height: 50px;
     z-index: 1;
     visibility: hidden;
+ 
  }
  
  .card:hover .buttons{
      visibility: unset;
+      
  }
 
 
  .card .buttons Button{
      margin: 4%;
-    opacity: 1.0;
+     
     
  }
 .card-img{
@@ -70,17 +72,17 @@
     width: 100%;
     
     height: 175px;
-    background: white;
+    background: 38444d;
     justify-content: left;
     align-items: center;
- 
+    color:white;
     box-shadow: 0 4px 4px rgba(9,30,66,.25);
  }
 .card p{
     padding-left: 10px;
     font-size: 1.25rem;
     text-align: left;
- 
+    
 }
 
 .modal-content{
