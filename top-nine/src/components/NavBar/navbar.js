@@ -30,7 +30,7 @@ import './navbar.css';
         return (
             <React.Fragment>
             <Navbar className='nav-bar' fixed="top"   expand="lg">
-                <Navbar.Brand href="/">Top9</Navbar.Brand>
+                <Navbar.Brand href="/"> <img src='./img/logo.png'  /></Navbar.Brand>
                 <div>
                     { (this.props.topNine && this.props.topNine.length < 9) &&
                      <Button className="btn  ml-auto mr-1" variant="success" onClick={this.handleShow}>Add</Button>}

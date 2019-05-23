@@ -29,7 +29,7 @@ class TopNineCard extends React.Component {
         title: item.title,
         description: item.description,
         image_url: item.image_url
-    })
+    });
 
     this.props.itemPut(this.state);
   }
@@ -50,9 +50,12 @@ class TopNineCard extends React.Component {
       <AddForm isAdd={false} getTopNine={this.props.getTopNine} item={this.props.item} show={this.state.showForm} handleClose={this.handleClose} handleShow={this.handleShow} update={this.update} />
 
       <Card className="item-card">
-      
-        <Card.Title>{this.props.item.title}</Card.Title>
-        <Card.Text> {this.props.item.description} </Card.Text>
+        <div className='title'>
+          <Card.Title>{this.props.item.title}</Card.Title>
+        </div>
+        <div className='description'>
+          <Card.Text> {this.props.item.description} </Card.Text>
+        </div>
         <div className='buttons'>
           <Button onClick={this.update} size="sm" variant="primary">Update</Button>
           <Button onClick={this.delete} size="sm" variant="danger">Delete</Button>
