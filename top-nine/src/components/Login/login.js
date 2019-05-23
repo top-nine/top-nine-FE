@@ -56,8 +56,11 @@ class Login extends React.Component {
         password: this.state.password
       })
       .then(() => {
+       
+      }).then(() => {
+        if (this.props.status === 200)
         this.finish();
-      });
+      })
   };
 
   cancel = event => {
@@ -95,7 +98,7 @@ class Login extends React.Component {
   registerForm() {
 
     let error =  this.state.password !== this.state.password2 ? 'Passwords do not match' : this.props.error;
-
+     
     return (
       <div className="login">
         <NavBar isLogin={true} />
@@ -141,14 +144,14 @@ class Login extends React.Component {
             </Form.Group>
           )}
 
-          <Button
+          <Button className='login-button'
             variant={this.state.registerForm ? "cancel" : "primary"}
             onClick={this.cancel}
           >
             Cancel
           </Button>
 
-          <Button
+          <Button className='login-button'
             variant={this.state.registerForm ? "primary" : "register"}
             onClick={this.registerClicked}
           >
@@ -161,8 +164,8 @@ class Login extends React.Component {
 
   loginForm() {
 
-    let error =  this.props.error;
-
+    let error =  this.props.status !== 200  && this.props.status !== 0 ? 'Please make sure login credentials are accurate' : '';
+    console.log(this.props);
     return (
       <div className="login">
         <NavBar isLogin={true} />
@@ -191,11 +194,11 @@ class Login extends React.Component {
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit" onClick={this.loginUser}>
+          <Button className='login-button' variant="primary" type="submit" onClick={this.loginUser}>
             Log In
           </Button>
 
-          <Button variant="register" onClick={this.registerClicked}>
+          <Button className='login-button' variant="register" onClick={this.registerClicked}>
             Register
           </Button>
         </Form>
