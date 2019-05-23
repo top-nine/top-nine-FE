@@ -27,7 +27,8 @@ export default (state = initialState, action) => {
     case LOGIN_FAILED:
       return {
         ...state,
-        error: action.payload.response.data.message,
+        error: action.payload.response.data.error,
+        status: action.payload.response.status,
         loggingIn: false
       };
 
