@@ -44,8 +44,8 @@ class TopNineCard extends React.Component {
   }
 
   render() {
-    const image_url = this.props.item.image_url !== null ? this.props.item.image_url : './img/logo.png';
-    console.log(this.props.item.image_url);
+    const image_url = this.props.item.image_url !== null &&  this.props.item.image_url !== "" ? this.props.item.image_url : './img/logo.png';
+    console.log(this.props);
     return (
       <React.Fragment>
       <AddForm isAdd={false} getTopNine={this.props.getTopNine} item={this.props.item} show={this.state.showForm} handleClose={this.handleClose} handleShow={this.handleShow} update={this.update} />

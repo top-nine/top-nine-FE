@@ -71,13 +71,13 @@ export const getTopNine = userID => dispatch => {
 };
 
 export const itemPut = item => dispatch => {
-  const { id, title, description } = item;
+  const { id, title, description, image_url} = item;
 
   dispatch({ type: PUT_ITEM });
   return axios
     .put(
       `https://top-nine.herokuapp.com/home/${id}/edit-top-nine`,
-      { title, description },
+      { title, description, image_url },
       {
         headers: {
           authorization: window.localStorage.getItem("auth")
