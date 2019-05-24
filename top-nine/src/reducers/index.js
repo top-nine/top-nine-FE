@@ -51,6 +51,7 @@ export default (state = initialState, action) => {
       return {};
 
     case GET_TOP_NINE_SUCCESS:
+      console.log(action.payload);
       return {
         ...state,
         topNine: action.payload.sort((a, b) => (a.id > b.id ? 1 : -1)),
